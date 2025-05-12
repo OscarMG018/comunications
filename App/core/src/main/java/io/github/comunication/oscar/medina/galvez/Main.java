@@ -23,7 +23,7 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.getData().setScale(2);
-        webSocketClient = new WebSocketClient("ws://localhost:8080");
+        webSocketClient = new WebSocketClient("wss://bandera1.ieti.site:443");
         webSocketClient.connect();
     }
 
@@ -48,7 +48,8 @@ public class Main extends ApplicationAdapter {
 
                 // Send position to server if connected
                 if (webSocketClient.isConnected()) {
-                    String message = json.toJson(new Position(x, y));
+                    Position position = new Position(x, y);
+                    String message = String.format("{\"type\": \"position\", \"data\": {\"x\": %f, \"y\": %f}}", position.x, position.y);
                     webSocketClient.send(message);
                 }
             }
@@ -83,7 +84,6 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        webSocketClient.disconnect();
     }
 
     // Position class for sending to server

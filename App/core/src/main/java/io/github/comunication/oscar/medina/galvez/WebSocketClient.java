@@ -1,5 +1,6 @@
 package io.github.comunication.oscar.medina.galvez;
 
+import com.badlogic.gdx.Gdx;
 import com.github.czyzby.websocket.WebSocket;
 import com.github.czyzby.websocket.WebSocketListener;
 import com.github.czyzby.websocket.WebSockets;
@@ -15,8 +16,13 @@ public class WebSocketClient implements WebSocketListener {
     }
 
     public void connect() {
-        if (!connected) {
+        Gdx.app.log("WebSocketClient", "Connecting to WebSocket...");
+        try {
             socket.connect();
+            // Note: The actual connection happens asynchronously
+            // The onOpen callback will be called when the connection is established
+        } catch (Exception e) {
+            Gdx.app.error("WebSocketClient", "Connection error: " + e.getMessage(), e);
         }
     }
 
@@ -49,7 +55,7 @@ public class WebSocketClient implements WebSocketListener {
 
     @Override
     public boolean onOpen(WebSocket webSocket) {
-        System.out.println("Opening...");
+        Gdx.app.log("WebSocketClient", "WebSocket connected successfully!");
         connected = true;
         return false;
     }
