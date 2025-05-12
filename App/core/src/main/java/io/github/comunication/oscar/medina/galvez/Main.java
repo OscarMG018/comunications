@@ -56,19 +56,17 @@ public class Main extends ApplicationAdapter {
         }
 
         // Update server response if available
-        if (webSocketClient.hasNewResponse()) {
-            String response = webSocketClient.getLatestResponse();
-            if (response != null) {
-                try {
-                    // Try to parse the response as JSON
-                    JsonValue jsonResponse = new JsonReader().parse(response);
-                    String status = jsonResponse.getString("status");
-                    String message = jsonResponse.getString("message");
-                    serverResponse = status + ": " + message;
-                } catch (Exception e) {
-                    // If parsing fails, just show the raw response
-                    serverResponse = response;
-                }
+        String response = webSocketClient.getLatestResponse();
+        if (response != null) {
+            try {
+                // Try to parse the response as JSON
+                JsonValue jsonResponse = new JsonReader().parse(response);
+                String status = jsonResponse.getString("status");
+                String message = jsonResponse.getString("message");
+                serverResponse = status + ": " + message;
+            } catch (Exception e) {
+                // If parsing fails, just show the raw response
+                serverResponse = response;
             }
         }
 

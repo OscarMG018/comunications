@@ -18,13 +18,13 @@ class GameLogic {
                         message: `Position received: (${data.x}, ${data.y})`,
                         position: data
                     };
-                    this.ws.send(JSON.stringify(response));
+                    this.ws.broadcast(JSON.stringify(response));
                 } else {
                     const response = {
                         status: 'invalid',
                         message: 'Invalid position'
                     };
-                    this.ws.send(JSON.stringify(response));
+                    this.ws.broadcast(JSON.stringify(response));
                 }
             default:
                 break;

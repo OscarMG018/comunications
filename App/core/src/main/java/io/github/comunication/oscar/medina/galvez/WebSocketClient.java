@@ -9,6 +9,7 @@ public class WebSocketClient implements WebSocketListener {
     private WebSocket socket;
     private boolean connected = false;
     private String lastResponse = null;
+    private String response = null;
 
     public WebSocketClient(String url) {
         socket = WebSockets.newSocket(url);
@@ -43,13 +44,7 @@ public class WebSocketClient implements WebSocketListener {
         return connected && socket != null && socket.isOpen();
     }
 
-    public boolean hasNewResponse() {
-        return lastResponse != null;
-    }
-
     public String getLatestResponse() {
-        String response = lastResponse;
-        lastResponse = null;
         return response;
     }
 
@@ -69,7 +64,7 @@ public class WebSocketClient implements WebSocketListener {
 
     @Override
     public boolean onMessage(WebSocket webSocket, String packet) {
-        System.out.println("Message:" + packet);
+        Gdx.app.log("WebSocketClient", "Message received: " + packet);
         lastResponse = packet;
         return false;
     }
