@@ -4,7 +4,6 @@ class GameLogic {
         this.ws = ws;
     }
 
-
     handleMessage(id, msg) {
         try {
           console.log("Received message:", msg);
@@ -29,7 +28,9 @@ class GameLogic {
             default:
                 break;
           }
-        } catch (error) {}
+        } catch (error) {
+            console.error("Error handling message:", error);
+        }
     }
 }
 
