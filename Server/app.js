@@ -26,12 +26,6 @@ ws.init(httpServer, port);
 
 ws.onConnection = (socket, id) => {
     if (debug) console.log("WebSocket client connected: " + id);
-    const player = game.addClient(id);
-    // Send the id to the client
-    socket.send(JSON.stringify({ 
-        type: "connected",
-        data: game.getGameState(player.id)
-    }));
 };
 
 ws.onMessage = (socket, id, msg) => {
@@ -41,8 +35,6 @@ ws.onMessage = (socket, id, msg) => {
 
 ws.onClose = (socket, id) => {
     if (debug) console.log("WebSocket client disconnected: " + id);
-    game.removeClient(id);
-    ws.broadcast(JSON.stringify({ type: "disconnected", from: "server" }));
 };
 
 // Gestionar el tancament del servidor
