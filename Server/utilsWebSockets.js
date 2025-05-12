@@ -71,9 +71,15 @@ class Obj {
 
     // Send a message to all websocket clients
     broadcast(msg) {
+        console.log("Broadcasting message to all clients");
+        let clientCount = 0;
         this.ws.clients.forEach((client) => {
-            client.send(msg)
-        })
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(msg);
+                clientCount++;
+            }
+        });
+        console.log(`Message broadcast to ${clientCount} clients`);
     }
 
     //

@@ -16,16 +16,21 @@ class GameLogic {
           let data = obj.data;
           switch (obj.type) {
             case "position":
-                console.log("Processing position message:", data);
+                console.log("Processing position message from client:", id);
+                console.log("Position data:", data);
                 const response = {
+                    type: "position_update",
                     status: 'valid',
                     message: `Position received: (${data.x}, ${data.y})`,
-                    position: data
+                    position: data,
+                    clientId: id
                 };
-                console.log("Broadcasting valid position:", response);
+                console.log("Broadcasting position update:", JSON.stringify(response));
                 this.ws.broadcast(JSON.stringify(response));
+                console.log("Broadcast complete");
                 break;
             default:
+                console.log("Unknown message type:", obj.type);
                 break;
           }
         } catch (error) {
