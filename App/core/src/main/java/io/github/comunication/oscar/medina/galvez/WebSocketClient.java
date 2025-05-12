@@ -66,6 +66,7 @@ public class WebSocketClient implements WebSocketListener {
     public boolean onMessage(WebSocket webSocket, String packet) {
         Gdx.app.log("WebSocketClient", "Message received: " + packet);
         lastResponse = packet;
+        response = packet;
         return false;
     }
 
