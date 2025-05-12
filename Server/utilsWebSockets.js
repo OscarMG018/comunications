@@ -72,9 +72,7 @@ class Obj {
     // Send a message to all websocket clients
     broadcast(msg) {
         this.ws.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(msg)
-            }
+            client.send(msg)
         })
     }
 
