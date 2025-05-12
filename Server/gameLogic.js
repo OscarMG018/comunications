@@ -12,7 +12,7 @@ class GameLogic {
           let data = obj.data;
           switch (obj.type) {
             case "position":
-                if (isValidPosition(data)) {
+                if (this.isValidPosition(data)) {
                     const response = {
                         status: 'valid',
                         message: `Position received: (${data.x}, ${data.y})`,
@@ -26,6 +26,7 @@ class GameLogic {
                     };
                     this.ws.broadcast(JSON.stringify(response));
                 }
+                break;
             default:
                 break;
           }
